@@ -30,12 +30,24 @@
       <label for="montant" class="form-label">Montant</label>
       <input type="number" th:field="*{montant}" class="form-control" id="montant" required>
     </div>
+
     <div class="mb-3">
       <label for="donateur" class="form-label">Donateur</label>
       <select th:field="*{donateur}" class="form-control" id="donateur">
         <option th:each="donateur : ${donateurs}" th:value="${donateur.id}" th:text="${donateur.nom}"></option>
       </select>
     </div>
+
+    <div class="mb-3">
+      <label for="campagne" class="form-label">Campagne</label>
+      <select th:field="*{campagne}" class="form-control" id="campagne">
+        <option th:each="campagne : ${campagnes}"
+                th:value="${campagne.id}"
+                th:text="${campagne.nom}"
+                th:selected="${don.campagne != null and campagne.id == don.campagne.id}"></option>
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Enregistrer</button>
     <a href="/dons/list" class="btn btn-secondary">Annuler</a>
   </form>

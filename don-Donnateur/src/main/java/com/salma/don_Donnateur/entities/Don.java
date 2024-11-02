@@ -11,7 +11,6 @@ public class Don {
     private Double montant;
     private LocalDate date;
 
-
     @ManyToOne
     @JoinColumn(name = "donateur_id")
     private Donateur donateur;

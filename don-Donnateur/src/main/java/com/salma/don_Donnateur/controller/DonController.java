@@ -47,14 +47,24 @@ public class DonController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Don don = donRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Don non trouvé"));
+
+        // Vérifiez si le don a une campagne, sinon affectez une campagne par défaut ou gérez le cas
+        if (don.getCampagne() == null) {
+            don.setCampagne(new Campagne()); // Par exemple, ajoutez une campagne vide
+        }
+
         model.addAttribute("don", don);
         model.addAttribute("donateurs", donateurRepository.findAll());
+        model.addAttribute("campagnes", campagneRepository.findAll());
         return "editDon";
     }
 
     @PostMapping("/edit/{id}")
     public String updateDon(@PathVariable Long id, @ModelAttribute Don don) {
-        don.setId(id);
+        Don existingDon = donRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Don non trouvé"));
+
+        don.setDate(existingDon.getDate()); // Conserver la date d'origine
         donRepository.save(don);
         return "redirect:/dons/list";
     }
