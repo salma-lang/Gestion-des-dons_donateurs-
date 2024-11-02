@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Détails du Donateur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Arrière-plan de la page avec dégradé bleu ciel vers gris */
+    body {
+      background: linear-gradient(to bottom, #E0F7FA, #F5F5F5);
+    }
+
+    /* Barre de navigation avec un dégradé de bleu ciel et gris */
+    .navbar {
+      background: linear-gradient(to right, #87CEEB, #B0E0E6, #D3D3D3, #F5F5F5);
+    }
+
+    /* Texte dans la barre de navigation en noir */
+    .navbar-brand, .nav-link {
+      color: #000 !important;
+    }
+
+    /* Bouton Retour avec un noir plus léger */
+    .btn-secondary {
+      background-color: #333333;
+      border-color: #333333;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #555555;
+      border-color: #555555;
+    }
+
+    /* Bouton Modifier en rose clair */
+    .btn-outline-warning {
+      color: #FFB3B3;
+      border-color: #FFB3B3;
+    }
+
+    .btn-outline-warning:hover {
+      background-color: #FFB3B3;
+      color: #fff;
+    }
+
+    /* Bouton Supprimer en bleu clair */
+    .btn-outline-danger {
+      color: #87CEEB;
+      border-color: #87CEEB;
+    }
+
+    .btn-outline-danger:hover {
+      background-color: #87CEEB;
+      color: #fff;
+    }
+
+    /* Barre "Liste des Dons" en noir */
+    .card-header {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Section d'information du donateur avec fond gris et bleu */
+    .card-body.donor-info {
+      background: linear-gradient(to bottom, #F5F5F5, #E0F7FA);
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+  <!-- Barre de navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Gestion des Dons</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="/donateurs/list">Donateurs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dons/list">Dons</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/campagnes/list">Campagnes</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Section d'informations du Donateur avec fond gris et bleu -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body donor-info">
+      <div class="row align-items-center">
+        <div class="col-md-2 text-center">
+          <img src="https://via.placeholder.com/100" alt="Photo du Donateur" class="rounded-circle img-thumbnail">
+        </div>
+        <div class="col-md-10">
+          <h3 class="card-title mb-1" th:text="${donateur.nom}"></h3>
+          <p class="mb-0 text-muted" th:text="'Email: ' + ${donateur.email}"></p>
+          <p class="mb-0 text-muted" th:text="'Adresse: ' + ${donateur.adresse}"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Liste des Dons avec barre de titre en noir -->
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Liste des dons effectués par le donateur </h5>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+        <tr>
+          <th>Date</th>
+          <th>Montant</th>
+          <th>Campagne</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="don : ${donateur.dons}">
+          <td th:text="${#temporals.format(don.date, 'dd/MM/yyyy')}"></td>
+          <td th:text="${don.montant + ' DH'}"></td>
+          <td th:text="${don.campagne.nom}"></td>
+          <td>
+            <div class="btn-group" role="group">
+              <a th:href="@{/dons/edit/{id}(id=${don.id})}" class="btn btn-outline-warning btn-sm">Modifier</a>
+              <a th:href="@{/dons/delete/{id}(id=${don.id})}" class="btn btn-outline-danger btn-sm">Supprimer</a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bouton Retour en noir -->
+  <div class="text-center mt-4">
+    <a href="/donateurs/list" class="btn btn-secondary">← Retour à la liste des Donateurs</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajouter une Campagne</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Arrière-plan de la page avec un dégradé bleu ciel vers gris */
+    body {
+      background: linear-gradient(to bottom, #E0F7FA, #F5F5F5);
+    }
+
+    /* Style des boutons Enregistrer et Annuler en rose clair */
+    .btn-submit, .btn-cancel {
+      background-color: #FFD1D1;
+      border-color: #FFD1D1;
+      color: #333;
+    }
+
+    .btn-submit:hover, .btn-cancel:hover {
+      background-color: #FFB3B3;
+      border-color: #FFB3B3;
+    }
+
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+  <h2>Nouvelle Campagne</h2>
+  <form th:action="@{/campagnes/add}" method="post">
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" class="form-control" id="nom" name="nom" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="dateDebut" class="form-label">Date de début</label>
+      <input type="date" class="form-control" id="dateDebut" name="dateDebut" required>
+    </div>
+    <div class="mb-3">
+      <label for="dateFin" class="form-label">Date de fin</label>
+      <input type="date" class="form-control" id="dateFin" name="dateFin" required>
+    </div>
+    <div class="mb-3">
+      <label for="objectif" class="form-label">Objectif (DH)</label>
+      <input type="number" class="form-control" id="objectif" name="objectif" required>
+    </div>
+    <button type="submit" class="btn btn-submit">Enregistrer</button>
+    <a href="/campagnes/list" class="btn btn-cancel">Annuler</a>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

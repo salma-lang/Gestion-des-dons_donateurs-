@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Campagnes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            background: linear-gradient(to bottom, #E0F7FA, #F5F5F5);
+        }
+
+
+        .navbar {
+            background: linear-gradient(to right, #87CEEB, #B0E0E6, #D3D3D3, #F5F5F5);
+        }
+
+
+        h2 {
+            text-align: center;
+            width: 100%;
+        }
+
+
+        .btn-primary {
+            background-color: #FFD1D1;
+            border-color: #FFD1D1;
+            font-size: 0.9rem;
+            padding: 5px 15px;
+            color: #333;
+        }
+
+        .btn-primary:hover {
+            background-color: #FFB3B3;
+            border-color: #FFB3B3;
+        }
+
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #F5F5F5;
+        }
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: #E0F7FA;
+        }
+
+
+        .objectif-cell {
+            background-color: #FFD1D1;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Gestion des Dons</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/donateurs/list">Donateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dons/list">Dons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/campagnes/list">Campagnes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Liste des Campagnes</h2>
+        <a href="/campagnes/add" class="btn btn-primary">Nouvelle Campagne</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Objectif (Dhs)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="campagne : ${campagnes}">
+            <td th:text="${campagne.nom}"></td>
+            <td th:text="${campagne.description}"></td>
+            <td th:text="${#temporals.format(campagne.dateDebut, 'dd/MM/yyyy')}"></td>
+            <td th:text="${#temporals.format(campagne.dateFin, 'dd/MM/yyyy')}"></td>
+            <td class="objectif-cell" th:text="${campagne.objectif}"></td>
+            <td>
+                <a th:href="@{/campagnes/delete/{id}(id=${campagne.id})}" class="btn btn-primary btn-sm">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Message si aucune campagne n'est disponible -->
+    <div th:if="${#lists.isEmpty(campagnes)}" class="alert alert-info" role="alert">
+        Aucune campagne n'est disponible pour le moment.
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
