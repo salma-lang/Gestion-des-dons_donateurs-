@@ -73,3 +73,8 @@ Le projet est structuré de manière modulaire avec les packages et répertoires
 
 ## Vidéo de démonstration:
 
+
+https://github.com/user-attachments/assets/898a171b-af6b-4bb6-b692-ecf1f86eeb52
+
+
+
