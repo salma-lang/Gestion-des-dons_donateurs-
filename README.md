@@ -40,7 +40,8 @@ Ce projet est une application web pour la gestion des dons au sein d'une associa
 Voici un aperçu du diagramme de classe basé sur ma conception :
 - **Campagne** contient un `id`, `nom`, `description`, `dateDebut`, `dateFin`, `objectif` et une liste de dons associés.
 - **Donateur** contient un `id`, `nom`, `adresse`, `email` et une liste de dons associés.
-- **Don**   contient un `id`, `montant`, `date` et des références à un `donateur` et une `campagne`.
+- **DON**  un `id`, `montant`, `date` et des références à un `donateur` et une `campagne`.
+  
   ![donation_management_class_diagram](https://github.com/user-attachments/assets/e7ce6f90-7415-42a1-a222-da32bbe8ae02)
 
 
